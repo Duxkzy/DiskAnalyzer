@@ -1,0 +1,25 @@
+{
+  "name": "disk-analyzer",
+  "version": "2.0.0",
+  "description": "A private desktop disk usage explorer with charts, search, filters and CSV export.",
+  "main": "desktop/main.js",
+  "author": "Disk Analyzer",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test tests/*.test.js",
+    "build:linux": "electron-builder --linux AppImage --x64 --publish never",
+    "build:windows": "electron-builder --win zip --x64 --publish never",
+    "build:mac": "electron-builder --mac zip --x64 --arm64 --publish never"
+  },
+  "devDependencies": {"electron": "44.5.1", "electron-builder": "26.15.3"},
+  "build": {
+    "appId": "com.diskanalyzer.desktop", "productName": "Disk Analyzer",
+    "artifactName": "Disk-Analyzer-${version}-${os}-${arch}.${ext}",
+    "directories": {"output": "dist"},
+    "files": ["index.html", "styles.css", "app.js", "core.js", "desktop/**/*", "assets/**/*", "package.json"],
+    "linux": {"target": "AppImage", "category": "Utility", "icon": "assets/icon.png"},
+    "win": {"target": "zip", "icon": "assets/icon.ico", "signAndEditExecutable": false},
+    "mac": {"target": "zip", "icon": "assets/icon.icns", "category": "public.app-category.utilities", "identity": "-"}
+  }
+}

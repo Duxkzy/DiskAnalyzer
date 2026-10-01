@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Disk Analyzer</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="core.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main class="shell">
+    <header><div class="brand"><span class="logo" aria-hidden="true">◫</span> Disk Analyzer <span class="version">DESKTOP</span></div><span class="local">● Private. Offline. On your computer.</span></header>
+    <section class="intro"><p class="eyebrow">MAKE ROOM FOR WHAT MATTERS</p><h1>Your space.<br>A clearer picture.</h1><p>Find what takes up room, explore your folders, and take the results with you.</p></section>
+    <section id="drop-zone" class="drop-zone" aria-label="Choose or drop a folder">
+      <div><span class="folder-art" aria-hidden="true">▱</span><h2>Start with a folder</h2><p>Drop one folder here or choose it from your computer.</p></div>
+      <div class="actions"><button id="choose-folder" class="primary">Choose folder <span aria-hidden="true">↗</span></button><button id="cancel-scan" class="secondary" hidden>Cancel scan</button></div>
+    </section>
+    <p id="status" class="status" role="status" aria-live="polite">Ready when you are. Your files never leave this device.</p>
+    <section id="results" hidden aria-label="Scan results">
+      <div class="stats"><article><span>TOTAL SIZE</span><strong id="total-size">0 B</strong><small>Logical file size · 1 KB = 1,024 bytes</small></article><article><span>FILES</span><strong id="file-count">0</strong><small>Across the selected folder</small></article><article><span>SUBFOLDERS</span><strong id="folder-count">0</strong><small>Including empty folders</small></article></div>
+      <details id="scan-details" class="scan-details" hidden><summary>Scan details</summary><p id="scan-summary"></p><ul id="scan-errors"></ul></details>
+      <div class="section-heading"><div><p class="eyebrow">EXPLORE YOUR SPACE</p><h2 id="folder-title">Space distribution</h2></div><button id="export-csv" class="secondary">Export CSV ↓</button></div>
+      <nav id="breadcrumbs" aria-label="Folder path"></nav>
+      <section class="visualization" aria-label="Space distribution chart">
+        <div class="chart-wrap"><svg id="space-chart" viewBox="0 0 240 240" role="img" aria-labelledby="chart-title"><title id="chart-title">Space used by the current folder's immediate children</title></svg><div class="chart-center"><span>CURRENT FOLDER</span><strong id="chart-total">0 B</strong></div></div>
+        <div class="chart-info"><h3>Where the space goes</h3><p id="chart-description">Immediate children of this folder. Click a folder in the legend to explore.</p><div id="chart-legend"></div></div>
+      </section>
+      <section class="explorer" aria-label="Files and folders">
+        <div class="toolbar"><label class="search-label"><span>Search names or paths</span><input id="search" type="search" placeholder="Search files and folders…" maxlength="1000"></label><label><span>Look in</span><select id="scope"><option value="children">This folder only</option><option value="descendants">Include all subfolders</option></select></label><label><span>Type</span><select id="kind"><option value="all">Files & folders</option><option value="file">Files only</option><option value="folder">Folders only</option></select></label><label><span>Extension</span><select id="extension"><option value="">All extensions</option></select></label><label><span>Minimum size</span><select id="minimum-size"><option value="0">Any size</option><option value="1048576">1 MB</option><option value="10485760">10 MB</option><option value="104857600">100 MB</option><option value="1073741824">1 GB</option></select></label></div>
+        <div class="list-summary"><p id="result-count"></p><button id="clear-filters" class="text-button">Clear filters</button></div>
+        <div class="list-heading"><span>NAME · LARGEST FIRST</span><span>SIZE / SHARE</span></div><div id="entries"></div>
+        <div class="pagination"><button id="previous-page" class="secondary">← Previous</button><span id="page-label"></span><button id="next-page" class="secondary">Next →</button></div>
+        <p class="hint list-note">Shares use the current folder's full size. CSV includes all matching rows, across every page. Nested folder totals overlap their contents.</p>
+      </section>
+    </section>
+    <footer>Read-only scanning · No uploads · No file contents read<br>Symbolic links and special files are skipped. Sizes do not represent allocated blocks or free disk space.</footer>
+  </main>
+</body>
+</html>
